@@ -32,9 +32,9 @@ This is an open-source online Kurdish (Sorani) keyboard that strictly follows th
 
 ### دەستپێکردن
 
-هیچ دامەزراندنێکی پێویست نییە. تەنها فایلی `index.html` دابگرە و لە وێبگەڕەکەتدا بیکەرەوە.
+هیچ دامەزراندنێکی پێویست نییە. تەنها فایلی `source.html` دابگرە و لە وێبگەڕەکەتدا بیکەرەوە.
 
-No installation is required. Simply download the `index.html` file and open it in your browser.
+No installation is required. Simply download the `source.html` file and open it in your browser.
 
 ---
 
