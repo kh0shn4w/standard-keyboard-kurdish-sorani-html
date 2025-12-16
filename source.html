@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کیبۆردی کوردی ستاندارد</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
+        })();
+    </script>
+    
+    <style>
+        :root {
+            --light-bg: #f0f2f5; --dark-bg: #121212;
+            --light-container-bg: #ffffff; --dark-container-bg: #1e1e1e;
+            --light-text: #2c3e50; --dark-text: #e0e0e0;
+            --light-key-bg: #ffffff; --dark-key-bg: #2c2c2c;
+            --light-key-border: #b0b8c_4; --dark-key-border: #444;
+            --light-key-hover: #e8e8e8; --dark-key-hover: #3a3a3a;
+            --light-special-key: #d_d8e_2; --dark-special-key: #005a4d;
+            --light-special-key-hover: #c_7_c_f_d0; --dark-special-key-hover: #00796b;
+            --light-textarea-bg: #ffffff; --dark-textarea-bg: #252525;
+            --light-textarea-border: #c_cd_d_0; --dark-textarea-border: #555;
+            --shift-active-bg: #007bff; --shift-active-text: white;
+            --en-char-color-light: #667; --en-char-color-dark: #889;
+            --copy-btn-bg: #007bff; --copy-btn-hover-bg: #0056b_3;
+            --copy-btn-success-bg: #28a745;
+        }
+
+        html { transition: background-color 0.3s; }
+        html.light-mode { --bg-color: var(--light-bg); }
+        html.dark-mode { --bg-color: var(--dark-bg); }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Noto Kufi Arabic', 'Segoe UI', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            min-height: 100vh; margin: 0; padding: 10px; box-sizing: border-box;
+        }
+        
+        html.light-mode body { --text-color: var(--light-text); --en-char-color: var(--en-char-color-light); }
+        html.dark-mode body { --text-color: var(--dark-text); --en-char-color: var(--en-char-color-dark); }
+        
+        .container {
+            width: 100%; max-width: 1100px; padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-radius: 12px; transition: background-color 0.3s; margin-bottom: 20px;
+        }
+        html.light-mode .container { background-color: var(--light-container-bg); }
+        html.dark-mode .container { background-color: var(--dark-container-bg); }
+
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        h1 { color: var(--text-color); margin: 0; font-size: 1.8rem; }
+        .top-buttons { display: flex; gap: 10px; align-items: center; }
+        .tutorial-btn { padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-family: 'Noto Kufi Arabic', sans-serif; transition: background-color 0.2s; }
+        .tutorial-btn:hover { background-color: #0056b_3; }
+        .theme-switcher { display: flex; align-items: center; gap: 10px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #007bff; }
+        input:checked + .slider:before { transform: translateX(24px); }
+        
+        .textarea-wrapper { position: relative; width: 100%; }
+
+        #text-output {
+            width: 100%; height: 200px; font-size: 1.8rem; padding: 15px;
+            padding-left: 120px;
+            border: 2px solid; border-radius: 8px; resize: vertical; box-sizing: border-box;
+            direction: rtl; text-align: right; font-family: 'Noto Kufi Arabic', sans-serif;
+            margin-bottom: 20px; transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        html.light-mode #text-output { background-color: var(--light-textarea-bg); border-color: var(--light-textarea-border); color: var(--light-text); }
+        html.dark-mode #text-output { background-color: var(--dark-textarea-bg); border-color: var(--dark-textarea-border); color: var(--dark-text); }
+        
+        #text-output::placeholder { color: #999; }
+        html.dark-mode #text-output::placeholder { color: #777; }
+        
+        .copy-btn {
+            position: absolute; bottom: 35px; left: 15px; padding: 8px 15px;
+            background-color: var(--copy-btn-bg); color: white; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 1rem; font-family: 'Noto Kufi Arabic', sans-serif;
+            transition: background-color 0.3s, opacity 0.3s; opacity: 0.9;
+        }
+        .copy-btn:hover { opacity: 1; background-color: var(--copy-btn-hover-bg); }
+        .copy-btn.copied { background-color: var(--copy-btn-success-bg); }
+
+        #keyboard { display: flex; flex-direction: column; gap: 8px; width: 100%; direction: ltr; }
+        .keyboard-row { display: flex; justify-content: center; gap: 0.8%; }
+
+        .key {
+            padding: 5px; font-weight: 500; border: 1px solid;
+            border-radius: 8px; cursor: pointer; flex: 1; text-align: center;
+            transition: background-color 0.2s, transform 0.1s, color 0.3s;
+            -webkit-tap-highlight-color: transparent; position: relative;
+            min-height: 55px; display: flex; justify-content: center; align-items: center; direction: rtl;
+        }
+        html.light-mode .key { background-color: var(--light-key-bg); color: var(--light-text); border-color: var(--light-key-border); }
+        html.dark-mode .key { background-color: var(--dark-key-bg); color: var(--dark-text); border-color: var(--dark-key-border); }
+        html.light-mode .key:hover { background-color: var(--light-key-hover); }
+        html.dark-mode .key:hover { background-color: var(--dark-key-hover); }
+
+        .key:active { transform: scale(0.95); }
+        .key.active-key { transform: scale(0.95); }
+        html.light-mode .key.active-key { background-color: var(--light-key-hover); }
+        html.dark-mode .key.active-key { background-color: var(--dark-key-hover); }
+
+        .key .shift-char { position: absolute; top: 3px; left: 5px; font-size: 0.9rem; color: #888; direction: ltr; }
+        .key .main-char { font-size: 1.5rem; }
+        .key .en-char { position: absolute; bottom: 3px; right: 5px; font-size: 0.8rem; color: var(--en-char-color); font-family: 'Segoe UI', sans-serif; direction: ltr; }
+        
+        html.dark-mode .key .shift-char { color: #aaa; }
+        #keyboard.shift-active .shift-key { background-color: var(--shift-active-bg) !important; color: var(--shift-active-text) !important; }
+        
+        /* FIX FOR SPECIAL KEYS COLOR */
+        html.light-mode .special-key { background-color: var(--light-special-key); color: var(--light-text); }
+        html.dark-mode .special-key { background-color: var(--dark-special-key); color: white; }
+        html.light-mode .special-key:hover { background-color: var(--light-special-key-hover); }
+        html.dark-mode .special-key:hover { background-color: var(--dark-special-key-hover); }
+
+        .space-key { flex-grow: 10; } .backspace-key { flex-grow: 2.5; }
+        .clear-key { flex-grow: 1.5; } .shift-key { flex-grow: 2.5; }
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-content { margin: auto; padding: 25px; border: 1px solid #888; width: 90%; max-width: 700px; border-radius: 10px; direction: rtl; }
+        html.light-mode .modal-content { background-color: var(--light-container-bg); color: var(--light-text); }
+        html.dark-mode .modal-content { background-color: var(--dark-container-bg); color: var(--dark-text); }
+        .close-btn { color: #aaa; float: left; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover, .close-btn:focus { color: var(--text-color); text-decoration: none; }
+        
+        footer { text-align: center; color: #888; font-size: 0.9rem; padding: 10px; }
+
+        @media (max-width: 992px) { .key .main-char { font-size: 1.3rem; } .key .shift-char { font-size: 0.8rem; } .key .en-char { font-size: 0.7rem; } }
+        @media (max-width: 768px) { h1 { font-size: 1.5rem; } #text-output { font-size: 1.5rem; height: 150px; } .key { min-height: 45px; } .key .main-char { font-size: 1.1rem; } .key .shift-char, .key .en-char { display: none; } }
+        @media (max-width: 480px) { .header { flex-direction: column; align-items: stretch; } h1 { text-align: center; } .key { min-height: 40px; } .copy-btn { font-size: 0.9rem; padding: 6px 10px; bottom: 30px; left: 10px; } #text-output { padding-left: 90px; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header"><h1>کیبۆردی کوردی ستاندارد</h1><div class="top-buttons"><button class="tutorial-btn" id="tutorialBtn">فێرکاری</button><div class="theme-switcher"><label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label></div></div></div>
+        <div class="textarea-wrapper"><textarea id="text-output" placeholder="لێرە دەقی خۆت بنووسە..."></textarea><button id="copyBtn" class="copy-btn">کۆپیکردن</button></div>
+        <div id="keyboard"></div>
+    </div>
+    <div id="tutorialModal" class="modal"></div>
+    <footer><p>&copy; 2025 ئەمیر خۆشناو. هەموو مافێکی پارێزراوە.</p></footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const textOutput = document.getElementById('text-output');
+        const keyboardContainer = document.getElementById('keyboard');
+        const themeToggle = document.getElementById('theme-toggle');
+        const modal = document.getElementById('tutorialModal');
+        const tutorialBtn = document.getElementById('tutorialBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const htmlEl = document.documentElement;
+
+        let isShiftActive = false;
+
+        const keyLayout = [
+            [{ en: '`', main: 'ذ', shift: '~' }, { en: '1', main: '١', shift: '!' }, { en: '2', main: '٢', shift: '@' },{ en: '3', main: '٣', shift: '#' }, { en: '4', main: '٤', shift: '$' }, { en: '5', main: '٥', shift: '%' },{ en: '6', main: '٦', shift: '^' }, { en: '7', main: '٧', shift: '&' }, { en: '8', main: '٨', shift: '*' },{ en: '9', main: '٩', shift: '(' }, { en: '0', main: '٠', shift: ')' }, { en: '-', main: '-', shift: '_' },{ en: '=', main: '=', shift: '+' }, { value: 'backspace', text: 'بسڕەوە', class: 'special-key backspace-key' }],
+            [{ en: 'q', main: 'ق', shift: '`' }, { en: 'w', main: 'و', shift: 'وو' }, { en: 'e', main: 'ە', shift: 'ي' },{ en: 'r', main: 'ر', shift: 'ڕ' }, { en: 't', main: 'ت', shift: 'ط' }, { en: 'y', main: 'ی', shift: 'ێ' },{ en: 'u', main: 'ئ', shift: 'ء' }, { en: 'i', main: 'ح', shift: 'ع' }, { en: 'o', main: 'ۆ', shift: 'ؤ' },{ en: 'p', main: 'پ', shift: 'ث' }, { en: '[', main: '[', shift: '{' }, { en: ']', main: ']', shift: '}' },{ en: '\\', main: '\\', shift: '|' }],
+            [{ en: 'a', main: 'ا', shift: 'آ' }, { en: 's', main: 'س', shift: 'ش' }, { en: 'd', main: 'د', shift: 'ذ' },{ en: 'f', main: 'ف', shift: 'إ' }, { en: 'g', main: 'گ', shift: 'غ' }, { en: 'h', main: 'هـ', shift: '‌' },{ en: 'j', main: 'ژ', shift: 'أ' }, { en: 'k', main: 'ک', shift: 'ك' }, { en: 'l', main: 'ل', shift: 'ڵ' },{ en: ';', main: '؛', shift: ':' }, { en: "'", main: "'", shift: '"' }],
+            [{ value: 'shift', text: 'Shift', class: 'special-key shift-key' },{ en: 'z', main: 'ز', shift: 'ض' }, { en: 'x', main: 'خ', shift: 'ص' }, { en: 'c', main: 'ج', shift: 'چ' },{ en: 'v', main: 'ڤ', shift: 'ظ' }, { en: 'b', main: 'ب', shift: 'ى' }, { en: 'n', main: 'ن', shift: 'ة' },{ en: 'm', main: 'م', shift: 'ـ' }, { en: ',', main: '،', shift: '<' }, { en: '.', main: '.', shift: '>' },{ en: '/', main: '/', shift: '؟' }],
+            [{ value: 'clear', text: 'سڕینەوە', class: 'special-key clear-key' },{ value: 'space', text: 'بۆشایی', class: 'special-key space-key' }]
+        ];
+
+        const keyMap = {};
+        keyLayout.flat().forEach(k => { if (k.en) keyMap[k.en] = { main: k.main, shift: k.shift }; });
+
+        function generateKeyboard() {
+            keyboardContainer.innerHTML = '';
+            keyLayout.forEach(row => {
+                const rowDiv = document.createElement('div'); rowDiv.className = 'keyboard-row';
+                row.forEach(keyData => {
+                    const keyBtn = document.createElement('button'); keyBtn.className = 'key';
+                    if (keyData.class) keyBtn.classList.add(...keyData.class.split(' '));
+                    if (keyData.value) {
+                        keyBtn.dataset.value = keyData.value; keyBtn.textContent = keyData.text;
+                    } else {
+                        keyBtn.dataset.key = keyData.en; keyBtn.dataset.main = keyData.main; keyBtn.dataset.shift = keyData.shift;
+                        keyBtn.innerHTML = `<span class="shift-char">${keyData.shift || ''}</span><span class="main-char">${keyData.main}</span><span class="en-char">${keyData.en}</span>`;
+                    }
+                    rowDiv.appendChild(keyBtn);
+                });
+                keyboardContainer.appendChild(rowDiv);
+            });
+            attachKeyListeners();
+        }
+
+        function updateKeyboardVisuals() {
+            keyboardContainer.classList.toggle('shift-active', isShiftActive);
+            document.querySelectorAll('.key[data-main]').forEach(key => {
+                const mainCharSpan = key.querySelector('.main-char'); const shiftCharSpan = key.querySelector('.shift-char');
+                const main = key.dataset.main; const shift = key.dataset.shift;
+                if (isShiftActive && shift) { mainCharSpan.textContent = shift; shiftCharSpan.textContent = main; }
+                else { mainCharSpan.textContent = main; shiftCharSpan.textContent = shift || ''; }
+            });
+        }
+        
+        function toggleShift() { isShiftActive = !isShiftActive; updateKeyboardVisuals(); }
+
+        function attachKeyListeners() {
+            document.querySelectorAll('.key').forEach(key => {
+                key.addEventListener('click', () => {
+                    const specialValue = key.dataset.value; textOutput.focus();
+                    if (specialValue) {
+                        switch (specialValue) {
+                            case 'backspace': textOutput.value = textOutput.value.slice(0, -1); break;
+                            case 'space': textOutput.value += ' '; break;
+                            case 'clear': textOutput.value = ''; break;
+                            case 'shift': toggleShift(); break;
+                        }
+                    } else {
+                        textOutput.value += key.querySelector('.main-char').textContent.trim();
+                        if (isShiftActive) toggleShift();
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Shift' && !isShiftActive) { isShiftActive = true; updateKeyboardVisuals(); }
+            if (e.target.tagName !== 'TEXTAREA') return;
+            const physicalKey = e.key.toLowerCase();
+            const mapping = keyMap[physicalKey];
+            if (mapping || physicalKey === ' ' || e.key === 'Backspace') {
+                e.preventDefault();
+                if (e.key === 'Backspace') { textOutput.value = textOutput.value.slice(0, -1); }
+                else {
+                    const char = e.shiftKey ? (mapping?.shift || mapping?.main) : mapping?.main;
+                    if (char) textOutput.value += char;
+                    else if (physicalKey === ' ') textOutput.value += ' ';
+                }
+            }
+            const keyElement = document.querySelector(`.key[data-key="${physicalKey}"], .key[data-key="${e.code.toLowerCase().replace('key','')}"]`);
+            if (keyElement) keyElement.classList.add('active-key');
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Shift') { isShiftActive = false; updateKeyboardVisuals(); }
+            const physicalKey = e.key.toLowerCase();
+            const keyElement = document.querySelector(`.key[data-key="${physicalKey}"], .key[data-key="${e.code.toLowerCase().replace('key','')}"]`);
+            if (keyElement) keyElement.classList.remove('active-key');
+        });
+        
+        function applyTheme(theme) {
+            htmlEl.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
+            themeToggle.checked = theme === 'dark';
+        }
+
+        themeToggle.addEventListener('change', () => {
+            const newTheme = themeToggle.checked ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme); applyTheme(newTheme);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if(textOutput.value) {
+                navigator.clipboard.writeText(textOutput.value).then(() => {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = 'کۆپی کرا!'; copyBtn.classList.add('copied');
+                    setTimeout(() => { copyBtn.textContent = originalText; copyBtn.classList.remove('copied'); }, 2000);
+                });
+            }
+        });
+
+        tutorialBtn.onclick = () => { modal.style.display = "flex"; }
+        modal.innerHTML = `<div class="modal-content"><span class="close-btn">&times;</span><h2>فێرکاریی کیبۆردی ستاندارد</h2><p>ئەم کیبۆردە هەمان ستانداردی کیبۆردی کوردی (سۆرانی) بەکاردەهێنێت کە لە سیستەمی ویندۆزدا هەیە.</p><p>بۆ نووسینی پیتە دووەمەکان (وەک ش، ڕ، ڵ) یان سیمبۆڵەکان، دوگمەی <strong>Shift</strong> لەگەڵ دوگمەی پیتەکە لەسەر کیبۆردی فیزیکی دابگرە، یان کرتە لە دوگمەی Shiftی سەر شاشەکە بکە.</p></div>`;
+        modal.querySelector('.close-btn').onclick = () => { modal.style.display = "none"; }
+        window.onclick = (event) => { if (event.target == modal) modal.style.display = "none"; }
+
+        generateKeyboard();
+        applyTheme(localStorage.getItem('theme') || 'dark');
+    });
+    </script>
+</body>
+</html>
