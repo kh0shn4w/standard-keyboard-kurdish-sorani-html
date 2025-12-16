@@ -1,5 +1,6 @@
 # Kurdish Keyboard HTML | کیبۆردی کوردی ستاندارد
 
+https://gamesinkurdish.com/projects/keyboard-sorani/
 ![Klavye Kurdi Screenshot](screenshotkeyboard.png)
 
 > پرۆژەیەکی کیبۆردی کوردی (سۆرانی)ی ئۆنلاینە کە بە تەواوی ستانداردی ویندۆزی پەیڕەو کردووە. ئەم کیبۆردە بۆ چارەسەرکردنی پێویستیی نووسینێکی خێرا و ستاندارد لەسەر وێب دروستکراوە، بە دیزاینێکی سادە و کاراییەکی بەرز.
